@@ -1,0 +1,909 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Flow Organizer</title>
+
+<style>
+:root {
+    --bg: #f3f5f7;
+    --panel: #ffffff;
+    --primary: #263b50;
+    --primary2: #365773;
+    --text: #263238;
+    --muted: #78838c;
+    --border: #dce2e7;
+    --green: #31845a;
+    --orange: #c58b32;
+    --red: #bd514b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+header {
+    background: var(--primary);
+    color: white;
+    padding: 24px;
+}
+
+.header-inner {
+    max-width: 1250px;
+    margin: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin: 7px 0 0;
+    color: #cbd7e1;
+    font-size: 14px;
+}
+
+main {
+    max-width: 1250px;
+    margin: auto;
+    padding: 24px 18px 50px;
+}
+
+button, input, select, textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    padding: 11px 15px;
+    font-weight: bold;
+    background: var(--primary);
+    color: white;
+}
+
+button:hover {
+    background: var(--primary2);
+}
+
+button.secondary {
+    background: #e8edf1;
+    color: var(--primary);
+}
+
+button.danger {
+    background: #f7e8e7;
+    color: var(--red);
+}
+
+button.small {
+    padding: 7px 10px;
+    font-size: 12px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 17px;
+}
+
+.section-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.tab {
+    background: #e4e9ed;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.workspace {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+}
+
+.workspace-header {
+    padding: 19px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.workspace-header h2 {
+    margin: 0;
+    font-size: 21px;
+    color: var(--primary);
+}
+
+.workspace-header p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.workspace-body {
+    padding: 19px;
+}
+
+.search {
+    flex: 1;
+    min-width: 180px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: white;
+    color: var(--text);
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary2);
+}
+
+.records {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+    gap: 15px;
+}
+
+.record {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.record h3 {
+    margin: 0;
+    font-size: 17px;
+    color: var(--primary);
+    overflow-wrap: anywhere;
+}
+
+.part-number {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.record-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.field label {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.field textarea {
+    min-height: 85px;
+    resize: vertical;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.status {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 6px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    height: fit-content;
+}
+
+.status[data-status="Not Started"] {
+    background: #edf0f2;
+    color: #69757e;
+}
+
+.status[data-status="In Progress"] {
+    background: #fff1d8;
+    color: #a66c17;
+}
+
+.status[data-status="On Hold"] {
+    background: #f9e6e4;
+    color: #b44c45;
+}
+
+.status[data-status="Complete"] {
+    background: #e2f2e8;
+    color: #31845a;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.empty {
+    grid-column: 1/-1;
+    padding: 45px 15px;
+    text-align: center;
+    color: var(--muted);
+    border: 1px dashed var(--border);
+    border-radius: 9px;
+}
+
+.footer-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 18px;
+}
+
+/* Modal */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    z-index: 10;
+}
+
+.modal-backdrop.show {
+    display: flex;
+}
+
+.modal {
+    width: min(500px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+}
+
+.modal h2 {
+    color: var(--primary);
+    margin: 0 0 20px;
+}
+
+.modal .field {
+    margin-bottom: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 18px;
+}
+
+@media(max-width:600px) {
+    header {
+        padding: 20px 16px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    main {
+        padding: 17px 11px 35px;
+    }
+
+    .workspace-body {
+        padding: 12px;
+    }
+
+    .field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .workspace-header {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <h1>Work Flow Organizer</h1>
+        <p>Organize projects, tasks, part numbers, and work progress.</p>
+    </div>
+</header>
+
+<main>
+
+    <div class="toolbar">
+        <span class="section-label">WORK AREAS</span>
+        <button id="addTabBtn">+ Add Tab</button>
+        <button class="secondary" id="exportBtn">Export Backup</button>
+        <button class="secondary" id="importBtn">Import Backup</button>
+        <input type="file" id="importFile" accept=".json" hidden>
+    </div>
+
+    <nav class="tabs" id="tabs"></nav>
+
+    <section class="workspace">
+
+        <div class="workspace-header">
+            <div>
+                <h2 id="activeTitle">General</h2>
+                <p id="summary">0 tasks</p>
+            </div>
+
+            <div class="toolbar" style="margin:0">
+                <button class="secondary small" id="renameTabBtn">
+                    Rename Tab
+                </button>
+                <button class="danger small" id="deleteTabBtn">
+                    Delete Tab
+                </button>
+            </div>
+        </div>
+
+        <div class="workspace-body">
+
+            <div class="toolbar">
+                <button id="addTaskBtn">+ Add Task</button>
+
+                <div class="search">
+                    <input id="searchInput"
+                    placeholder="Search tasks, part numbers, notes...">
+                </div>
+
+                <select id="statusFilter" style="max-width:175px">
+                    <option value="">All Statuses</option>
+                    <option>Not Started</option>
+                    <option>In Progress</option>
+                    <option>On Hold</option>
+                    <option>Complete</option>
+                </select>
+            </div>
+
+            <div class="records" id="records"></div>
+
+            <div class="footer-note">
+                Your changes save automatically in this browser.
+                Export backups regularly to protect your information.
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- TASK EDITOR -->
+
+<div class="modal-backdrop" id="modalBackdrop">
+
+    <div class="modal">
+
+        <h2 id="modalTitle">Add Task</h2>
+
+        <form id="taskForm">
+
+            <div class="field">
+                <label>Task Name</label>
+                <input id="taskName"
+                placeholder="Enter task name" required>
+            </div>
+
+            <div class="field">
+                <label>Part Number</label>
+                <input id="partNumber"
+                placeholder="Enter part number (optional)">
+            </div>
+
+            <div class="field">
+                <label>Sub-Category</label>
+                <input id="category"
+                placeholder="Enter sub-category">
+            </div>
+
+            <div class="field">
+                <label>Status</label>
+                <select id="taskStatus">
+                    <option>Not Started</option>
+                    <option>In Progress</option>
+                    <option>On Hold</option>
+                    <option>Complete</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Notes</label>
+                <textarea id="taskNotes"
+                placeholder="Enter notes, updates, or next steps..."></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary"
+                id="cancelBtn">Cancel</button>
+
+                <button type="submit">Save Task</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+
+const STORAGE_KEY = "workFlowOrganizerStandalone_v1";
+
+let data = loadData();
+let activeTab = data.tabs[0].id;
+let editingId = null;
+
+const $ = id => document.getElementById(id);
+
+function uid() {
+    return Date.now().toString(36) +
+        Math.random().toString(36).slice(2);
+}
+
+function loadData() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (saved && Array.isArray(saved.tabs) && saved.tabs.length) {
+            saved.tabs.forEach(t => {
+                if (!Array.isArray(t.tasks)) t.tasks = [];
+            });
+            return saved;
+        }
+    } catch(e) {}
+
+    return {
+        tabs: [{
+            id: uid(),
+            name: "General",
+            tasks: []
+        }]
+    };
+}
+
+function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function currentTab() {
+    return data.tabs.find(t => t.id === activeTab);
+}
+
+function escapeHTML(value = "") {
+    return String(value).replace(/[&<>"']/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[c]);
+}
+
+/* TABS */
+
+function renderTabs() {
+
+    $("tabs").innerHTML = data.tabs.map(t => `
+        <button class="tab ${t.id === activeTab ? "active" : ""}"
+        data-tab="${escapeHTML(t.id)}">
+            ${escapeHTML(t.name)}
+            (${t.tasks.length})
+        </button>
+    `).join("");
+
+    document.querySelectorAll("[data-tab]").forEach(btn => {
+        btn.onclick = () => {
+            activeTab = btn.dataset.tab;
+            render();
+        };
+    });
+}
+
+/* MAIN DISPLAY */
+
+function render() {
+
+    renderTabs();
+
+    const tab = currentTab();
+
+    if (!tab) return;
+
+    $("activeTitle").textContent = tab.name;
+
+    $("summary").textContent =
+        `${tab.tasks.length} task${tab.tasks.length === 1 ? "" : "s"}`;
+
+    const search = $("searchInput").value.toLowerCase();
+    const filter = $("statusFilter").value;
+
+    const tasks = tab.tasks.filter(task => {
+
+        const matchesSearch = [
+            task.name,
+            task.part,
+            task.category,
+            task.status,
+            task.notes
+        ].join(" ").toLowerCase().includes(search);
+
+        const matchesStatus =
+            !filter || task.status === filter;
+
+        return matchesSearch && matchesStatus;
+    });
+
+    if (!tasks.length) {
+
+        $("records").innerHTML = `
+            <div class="empty">
+                <h3>No tasks found</h3>
+                Add a new task or change your search.
+            </div>
+        `;
+
+        return;
+    }
+
+    $("records").innerHTML = tasks.map(task => `
+
+        <article class="record">
+
+            <div class="record-top">
+
+                <div>
+                    <h3>${escapeHTML(task.name)}</h3>
+
+                    <div class="part-number">
+                        Part #: ${escapeHTML(task.part || "Not assigned")}
+                    </div>
+                </div>
+
+                <span class="status"
+                data-status="${escapeHTML(task.status)}">
+                    ${escapeHTML(task.status)}
+                </span>
+
+            </div>
+
+            <div class="field-grid">
+
+                <div class="field">
+                    <label>Sub-Category</label>
+                    <div>${escapeHTML(task.category || "None")}</div>
+                </div>
+
+                <div class="field">
+                    <label>Part Number</label>
+                    <div>${escapeHTML(task.part || "None")}</div>
+                </div>
+
+            </div>
+
+            <div class="field">
+                <label>Notes</label>
+                <div style="white-space:pre-wrap;overflow-wrap:anywhere">
+                    ${escapeHTML(task.notes || "No notes added.")}
+                </div>
+            </div>
+
+            <div class="card-actions">
+
+                <button class="secondary small"
+                data-edit="${escapeHTML(task.id)}">
+                    Edit
+                </button>
+
+                <button class="danger small"
+                data-delete="${escapeHTML(task.id)}">
+                    Delete
+                </button>
+
+            </div>
+
+        </article>
+
+    `).join("");
+
+    document.querySelectorAll("[data-edit]").forEach(btn => {
+        btn.onclick = () => {
+            const task = tab.tasks.find(
+                t => t.id === btn.dataset.edit
+            );
+            if (task) openModal(task);
+        };
+    });
+
+    document.querySelectorAll("[data-delete]").forEach(btn => {
+        btn.onclick = () => {
+
+            if (!confirm("Delete this task?")) return;
+
+            tab.tasks = tab.tasks.filter(
+                t => t.id !== btn.dataset.delete
+            );
+
+            save();
+            render();
+        };
+    });
+}
+
+/* ADD AND EDIT TASKS */
+
+function openModal(task = null) {
+
+    editingId = task ? task.id : null;
+
+    $("modalTitle").textContent =
+        task ? "Edit Task" : "Add Task";
+
+    $("taskName").value = task?.name || "";
+    $("partNumber").value = task?.part || "";
+    $("category").value = task?.category || "";
+    $("taskStatus").value =
+        task?.status || "Not Started";
+    $("taskNotes").value = task?.notes || "";
+
+    $("modalBackdrop").classList.add("show");
+
+    $("taskName").focus();
+}
+
+function closeModal() {
+    $("modalBackdrop").classList.remove("show");
+}
+
+$("addTaskBtn").onclick = () => openModal();
+
+$("cancelBtn").onclick = closeModal;
+
+$("modalBackdrop").onclick = e => {
+    if (e.target === $("modalBackdrop")) {
+        closeModal();
+    }
+};
+
+$("taskForm").onsubmit = e => {
+
+    e.preventDefault();
+
+    const tab = currentTab();
+
+    const taskData = {
+        name: $("taskName").value.trim(),
+        part: $("partNumber").value.trim(),
+        category: $("category").value.trim(),
+        status: $("taskStatus").value,
+        notes: $("taskNotes").value.trim()
+    };
+
+    if (!taskData.name) return;
+
+    if (editingId) {
+
+        const task = tab.tasks.find(
+            t => t.id === editingId
+        );
+
+        if (task) Object.assign(task, taskData);
+
+    } else {
+
+        tab.tasks.unshift({
+            id: uid(),
+            ...taskData
+        });
+
+    }
+
+    save();
+    closeModal();
+    render();
+};
+
+/* MAIN TAB MANAGEMENT */
+
+$("addTabBtn").onclick = () => {
+
+    const name = prompt("Enter a name for your new tab:");
+
+    if (!name || !name.trim()) return;
+
+    const tab = {
+        id: uid(),
+        name: name.trim(),
+        tasks: []
+    };
+
+    data.tabs.push(tab);
+    activeTab = tab.id;
+
+    save();
+    render();
+};
+
+$("renameTabBtn").onclick = () => {
+
+    const tab = currentTab();
+
+    const name = prompt(
+        "Rename this tab:",
+        tab.name
+    );
+
+    if (!name || !name.trim()) return;
+
+    tab.name = name.trim();
+
+    save();
+    render();
+};
+
+$("deleteTabBtn").onclick = () => {
+
+    if (data.tabs.length === 1) {
+        alert("You must keep at least one tab.");
+        return;
+    }
+
+    if (!confirm(
+        "Delete this entire tab and all its tasks?"
+    )) return;
+
+    data.tabs = data.tabs.filter(
+        t => t.id !== activeTab
+    );
+
+    activeTab = data.tabs[0].id;
+
+    save();
+    render();
+};
+
+/* SEARCH AND FILTER */
+
+$("searchInput").oninput = render;
+$("statusFilter").onchange = render;
+
+/* BACKUP EXPORT */
+
+$("exportBtn").onclick = () => {
+
+    const blob = new Blob(
+        [JSON.stringify(data, null, 2)],
+        { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "work-flow-organizer-backup.json";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+};
+
+/* BACKUP IMPORT */
+
+$("importBtn").onclick = () => {
+    $("importFile").click();
+};
+
+$("importFile").onchange = async e => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    try {
+
+        const imported = JSON.parse(
+            await file.text()
+        );
+
+        if (!Array.isArray(imported.tabs) ||
+            !imported.tabs.length ||
+            !imported.tabs.every(t =>
+                typeof t.name === "string" &&
+                Array.isArray(t.tasks)
+            )) {
+            throw new Error("Invalid backup");
+        }
+
+        imported.tabs.forEach(t => {
+            t.tasks.forEach(task => {
+                if (!task.id) task.id = uid();
+                if (!task.name) task.name = "Untitled Task";
+                if (!task.part) task.part = "";
+                if (!task.category) task.category = "";
+                if (!task.status) task.status = "Not Started";
+                if (!task.notes) task.notes = "";
+            });
+        });
+
+        if (!confirm(
+            "Importing will replace the current app data. Continue?"
+        )) return;
+
+        data = imported;
+        activeTab = data.tabs[0].id;
+
+        save();
+        render();
+
+        alert("Backup imported successfully.");
+
+    } catch(error) {
+
+        alert("Invalid backup file.");
+
+    }
+
+    e.target.value = "";
+};
+
+/* START */
+
+render();
+
+</script>
+
+</body>
+</html>
