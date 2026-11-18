@@ -360,7 +360,7 @@ textarea {
 
   <div class="toolbar">
     <div>
-      <h2 id="currentTabTitle">Work Area</h2>
+      <h2 id="currentTabTitle">Vehicle Manufacture</h2>
       <div class="group-count" id="groupCount"></div>
     </div>
 
@@ -374,13 +374,7 @@ textarea {
 
   <div id="groupsContainer" class="group-grid"></div>
 
-  <div style="margin-top:18px;">
-    <button class="primary-btn" onclick="openGroupModal()">
-      + Add Group
-    </button>
-  </div>
-
-  <div class="footer-tools">
+<div class="footer-tools">
     <button class="secondary-btn" onclick="exportBackup()">
       Export Backup
     </button>
@@ -460,7 +454,7 @@ textarea {
 
 <div class="modal" id="tabModal">
   <div class="modal-content">
-    <h2>Manage Work Area Tabs</h2>
+    <h2>Manage Vehicle Manufacture Tabs</h2>
 
     <div class="form-group">
       <label for="newTabName">New Tab Name</label>
@@ -568,12 +562,7 @@ function renderTabs() {
     };
     container.appendChild(button);
   });
-
-  const addButton = document.createElement("button");
-  addButton.className = "add-tab";
-  addButton.textContent = "+ Add Tab";
-  addButton.onclick = openTabManager;
-  container.appendChild(addButton);
+  
 }
 
 function renderGroups() {
@@ -643,7 +632,7 @@ function renderGroups() {
 
     const category = document.createElement("div");
     category.className = "category";
-    category.textContent = "Sub-category: " + (group.category || "Not entered");
+    category.textContent = "Current Stage: " + (group.category || "Not entered");
 
     const notesLabel = document.createElement("strong");
     notesLabel.textContent = "Notes";
@@ -731,7 +720,7 @@ document.getElementById("groupForm").addEventListener("submit", function(event) 
   };
 
   if (!group.name) {
-    alert("Please enter a Group Name.");
+    alert("Please enter a Group Number.");
     return;
   }
 
@@ -842,7 +831,7 @@ function deleteTab(id) {
   if (!tab) return;
 
   if (data.tabs.length <= 1) {
-    alert("You must keep at least one work area tab.");
+    alert("You must keep at least one tab.");
     return;
   }
 
@@ -899,7 +888,7 @@ function importBackup(event) {
       render();
       alert("Backup imported successfully.");
     } catch (error) {
-      alert("Could not import this file. Please select a valid Work Flow Organizer backup.");
+      alert("Could not import this file. Please select a valid Work Flow backup.");
     }
 
     event.target.value = "";
