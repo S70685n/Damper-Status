@@ -8,347 +8,334 @@
 
 <style>
 :root {
-    --bg: #f3f5f7;
-    --panel: #ffffff;
-    --primary: #263b50;
-    --primary2: #365773;
-    --text: #263238;
-    --muted: #78838c;
-    --border: #dce2e7;
-    --green: #31845a;
-    --orange: #c58b32;
-    --red: #bd514b;
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --primary: #263b50;
+  --primary-light: #365675;
+  --text: #202b36;
+  --muted: #718096;
+  --border: #dce2e8;
+  --shadow: 0 3px 12px rgba(20,35,50,.08);
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-}
-
-header {
-    background: var(--primary);
-    color: white;
-    padding: 24px;
-}
-
-.header-inner {
-    max-width: 1250px;
-    margin: auto;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 28px;
-}
-
-header p {
-    margin: 7px 0 0;
-    color: #cbd7e1;
-    font-size: 14px;
-}
-
-main {
-    max-width: 1250px;
-    margin: auto;
-    padding: 24px 18px 50px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
 }
 
 button, input, select, textarea {
-    font: inherit;
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+header {
+  background: var(--primary);
+  color: white;
+  padding: 22px;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 23px;
+}
+
+.header-subtitle {
+  color: #cbd5df;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 22px;
 }
 
 button {
-    cursor: pointer;
-    border: none;
-    border-radius: 7px;
-    padding: 11px 15px;
-    font-weight: bold;
-    background: var(--primary);
-    color: white;
+  border: 0;
+  border-radius: 7px;
+  padding: 10px 14px;
+  font-weight: 600;
 }
 
-button:hover {
-    background: var(--primary2);
+.primary-btn {
+  background: var(--primary);
+  color: white;
 }
 
-button.secondary {
-    background: #e8edf1;
-    color: var(--primary);
+.primary-btn:hover {
+  background: var(--primary-light);
 }
 
-button.danger {
-    background: #f7e8e7;
-    color: var(--red);
+.secondary-btn {
+  background: #e8edf2;
+  color: var(--primary);
 }
 
-button.small {
-    padding: 7px 10px;
-    font-size: 12px;
+.danger-btn {
+  background: #fde8e8;
+  color: #b42318;
 }
 
-.toolbar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 17px;
-}
-
-.section-label {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: bold;
-    letter-spacing: 1px;
+.small-btn {
+  padding: 7px 10px;
+  font-size: 12px;
 }
 
 .tabs {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .tab {
-    background: #e4e9ed;
-    color: var(--primary);
-    white-space: nowrap;
+  background: #e1e7ed;
+  color: var(--primary);
+  border: 1px solid transparent;
 }
 
 .tab.active {
-    background: var(--primary);
-    color: white;
+  background: var(--primary);
+  color: white;
 }
 
-.workspace {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    overflow: hidden;
+.add-tab {
+  background: white;
+  border: 1px dashed #9aa8b5;
+  color: var(--primary);
 }
 
-.workspace-header {
-    padding: 19px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
-.workspace-header h2 {
-    margin: 0;
-    font-size: 21px;
-    color: var(--primary);
-}
-
-.workspace-header p {
-    margin: 5px 0 0;
-    font-size: 13px;
-    color: var(--muted);
-}
-
-.workspace-body {
-    padding: 19px;
+.toolbar h2 {
+  margin: 0;
+  font-size: 21px;
 }
 
 .search {
-    flex: 1;
-    min-width: 180px;
+  width: 260px;
+  max-width: 100%;
 }
 
 input, select, textarea {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    background: white;
-    color: var(--text);
-    outline: none;
+  width: 100%;
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: white;
+  color: var(--text);
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: var(--primary2);
+textarea {
+  resize: vertical;
+  min-height: 95px;
 }
 
-.records {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-    gap: 15px;
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 15px;
 }
 
-.record {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.group-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 17px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 
-.record h3 {
-    margin: 0;
-    font-size: 17px;
-    color: var(--primary);
-    overflow-wrap: anywhere;
+.group-card h3 {
+  margin: 0;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.group-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .part-number {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 5px;
+  font-weight: bold;
+  color: var(--primary);
+  overflow-wrap: anywhere;
 }
 
-.record-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+.category {
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.field label {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: .7px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-
-.field textarea {
-    min-height: 85px;
-    resize: vertical;
-}
-
-.field-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+.notes {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .status {
-    font-size: 11px;
-    font-weight: bold;
-    padding: 6px 9px;
-    border-radius: 20px;
-    white-space: nowrap;
-    height: fit-content;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-.status[data-status="Not Started"] {
-    background: #edf0f2;
-    color: #69757e;
+.status-not-started {
+  background: #edf0f3;
+  color: #59636e;
 }
 
-.status[data-status="In Progress"] {
-    background: #fff1d8;
-    color: #a66c17;
+.status-in-progress {
+  background: #fff1d6;
+  color: #9a6500;
 }
 
-.status[data-status="On Hold"] {
-    background: #f9e6e4;
-    color: #b44c45;
+.status-on-hold {
+  background: #fce7e7;
+  color: #ad2929;
 }
 
-.status[data-status="Complete"] {
-    background: #e2f2e8;
-    color: #31845a;
+.status-complete {
+  background: #dff4e5;
+  color: #23733b;
 }
 
 .card-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 7px;
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.card-actions button {
+  flex: 1;
 }
 
 .empty {
-    grid-column: 1/-1;
-    padding: 45px 15px;
-    text-align: center;
-    color: var(--muted);
-    border: 1px dashed var(--border);
-    border-radius: 9px;
+  text-align: center;
+  background: white;
+  border: 1px dashed #b9c4ce;
+  border-radius: 10px;
+  padding: 40px 20px;
+  color: var(--muted);
 }
 
-.footer-note {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 18px;
-}
-
-/* Modal */
-
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: #0008;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    z-index: 10;
-}
-
-.modal-backdrop.show {
-    display: flex;
+.empty h3 {
+  color: var(--text);
+  margin-top: 0;
 }
 
 .modal {
-    width: min(500px, 100%);
-    max-height: 90vh;
-    overflow-y: auto;
-    background: white;
-    padding: 22px;
-    border-radius: 12px;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
 }
 
-.modal h2 {
-    color: var(--primary);
-    margin: 0 0 20px;
+.modal.show {
+  display: flex;
 }
 
-.modal .field {
-    margin-bottom: 14px;
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 10px 35px rgba(0,0,0,.2);
+}
+
+.modal-content h2 {
+  margin: 0 0 18px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 6px;
 }
 
 .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 9px;
-    margin-top: 18px;
+  display: flex;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  flex: 1;
+}
+
+.footer-tools {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.group-count {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 @media(max-width:600px) {
-    header {
-        padding: 20px 16px;
-    }
-
-    header h1 {
-        font-size: 24px;
-    }
-
-    main {
-        padding: 17px 11px 35px;
-    }
-
-    .workspace-body {
-        padding: 12px;
-    }
-
-    .field-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .workspace-header {
-        padding: 15px;
-    }
+  .container { padding: 15px; }
+  header { padding: 18px 15px; }
+  header h1 { font-size: 20px; }
+  .header-inner { align-items: flex-start; }
+  .toolbar { align-items: stretch; }
+  .search { width: 100%; }
+  .group-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -356,552 +343,582 @@ input:focus, select:focus, textarea:focus {
 <body>
 
 <header>
-    <div class="header-inner">
-        <h1>Damper Build Status</h1>
-        <p>2.5" Pro Truck Series</p>
+  <div class="header-inner">
+    <div>
+      <h1>Damper Build Status</h1>
+      <div class="header-subtitle">2.5" Pro Truck Series</div>
     </div>
+    <button class="secondary-btn small-btn" onclick="openTabManager()">
+      Manage Tabs
+    </button>
+  </div>
 </header>
 
-<main>
+<div class="container">
 
-    <div class="toolbar">
-        <button id="addTabBtn">+ Add Tab</button>
-        <button class="secondary" id="exportBtn">Export Backup</button>
-        <button class="secondary" id="importBtn">Import Backup</button>
-        <input type="file" id="importFile" accept=".json" hidden>
+  <div class="tabs" id="tabs"></div>
+
+  <div class="toolbar">
+    <div>
+      <h2 id="currentTabTitle">Work Area</h2>
+      <div class="group-count" id="groupCount"></div>
     </div>
 
-    <nav class="tabs" id="tabs"></nav>
+    <input
+      class="search"
+      id="searchInput"
+      placeholder="Search groups..."
+      oninput="renderGroups()"
+    >
+  </div>
 
-    <section class="workspace">
+  <div id="groupsContainer" class="group-grid"></div>
 
-        <div class="workspace-header">
-            <div>
-                <h2 id="activeTitle">General</h2>
-                <p id="summary">0 group</p>
-            </div>
+  <div style="margin-top:18px;">
+    <button class="primary-btn" onclick="openGroupModal()">
+      + Add Group
+    </button>
+  </div>
 
-            <div class="toolbar" style="margin:0">
-                <button class="secondary small" id="renameTabBtn">
-                    Rename Tab
-                </button>
-                <button class="danger small" id="deleteTabBtn">
-                    Delete Tab
-                </button>
-            </div>
-        </div>
+  <div class="footer-tools">
+    <button class="secondary-btn" onclick="exportBackup()">
+      Export Backup
+    </button>
 
-        <div class="workspace-body">
+    <button class="secondary-btn" onclick="document.getElementById('importFile').click()">
+      Import Backup
+    </button>
 
-            <div class="toolbar">
-                <button id="addTaskBtn">+ Add Group</button>
+    <input
+      type="file"
+      id="importFile"
+      accept=".json,application/json"
+      hidden
+      onchange="importBackup(event)"
+    >
+  </div>
 
-                <div class="search">
-                    <input id="searchInput"
-                    placeholder="Search groups, part numbers, notes...">
-                </div>
+  <div class="footer-note">
+    Your information is automatically saved in this browser.
+    Export a backup periodically to keep a separate copy.
+  </div>
 
-                <select id="statusFilter" style="max-width:175px">
-                    <option value="">All Statuses</option>
-                    <option>Not Started</option>
-                    <option>In Progress</option>
-                    <option>On Hold</option>
-                    <option>Complete</option>
-                </select>
-            </div>
+</div>
 
-            <div class="records" id="records"></div>
+<!-- GROUP MODAL -->
 
-            <div class="footer-note">
-                Your changes save automatically in this browser.
-                Export backups regularly to protect your information.
-            </div>
+<div class="modal" id="groupModal">
+  <div class="modal-content">
+    <h2 id="groupModalTitle">Add Group</h2>
 
-        </div>
-    </section>
+    <form id="groupForm">
 
-</main>
+      <div class="form-group">
+        <label for="groupName">Group Number</label>
+        <input id="groupName" required placeholder="Enter group number">
+      </div>
 
-<!-- TASK EDITOR -->
+      <div class="form-group">
+        <label for="groupPart">Part Number</label>
+        <input id="groupPart" placeholder="Enter part number">
+      </div>
 
-<div class="modal-backdrop" id="modalBackdrop">
+      <div class="form-group">
+        <label for="groupCategory">Current stage</label>
+        <input id="groupCategory" placeholder="Enter current stage of build process">
+      </div>
 
-    <div class="modal">
+      <div class="form-group">
+        <label for="groupStatus">Group Status</label>
+        <select id="groupStatus">
+          <option value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="On Hold">On Hold</option>
+          <option value="Complete">Complete</option>
+        </select>
+      </div>
 
-        <h2 id="modalTitle">Add Group</h2>
+      <div class="form-group">
+        <label for="groupNotes">Notes</label>
+        <textarea id="groupNotes" placeholder="Enter notes or updates..."></textarea>
+      </div>
 
-        <form id="taskForm">
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" onclick="closeGroupModal()">
+          Cancel
+        </button>
+        <button type="submit" class="primary-btn">
+          Save Group
+        </button>
+      </div>
 
-            <div class="field">
-                <label>Group Number</label>
-                <input id="taskName"
-                placeholder="Enter group number" required>
-            </div>
+    </form>
+  </div>
+</div>
 
-            <div class="field">
-                <label>Part Number</label>
-                <input id="partNumber"
-                placeholder="Enter part number">
-            </div>
+<!-- TAB MANAGER MODAL -->
 
-            <div class="field">
-                <label>Current Stage</label>
-                <input id="stage"
-                placeholder="Enter current stage">
-            </div>
+<div class="modal" id="tabModal">
+  <div class="modal-content">
+    <h2>Manage Work Area Tabs</h2>
 
-            <div class="field">
-                <label>Status</label>
-                <select id="taskStatus">
-                    <option>Not Started</option>
-                    <option>In Progress</option>
-                    <option>On Hold</option>
-                    <option>Complete</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label>Notes</label>
-                <textarea id="taskNotes"
-                placeholder="Enter notes, updates, or next steps..."></textarea>
-            </div>
-
-            <div class="modal-actions">
-                <button type="button" class="secondary"
-                id="cancelBtn">Cancel</button>
-
-                <button type="submit">Save Group</button>
-            </div>
-
-        </form>
+    <div class="form-group">
+      <label for="newTabName">New Tab Name</label>
+      <input id="newTabName" placeholder="Enter tab name">
     </div>
+
+    <button class="primary-btn" onclick="addTab()">+ Add Tab</button>
+
+    <hr style="border:0;border-top:1px solid var(--border);margin:20px 0;">
+
+    <div id="tabManagerList"></div>
+
+    <div class="modal-actions">
+      <button class="secondary-btn" onclick="closeTabManager()">Close</button>
+    </div>
+  </div>
 </div>
 
 <script>
-
 const STORAGE_KEY = "workFlowOrganizerStandalone_v1";
 
-let data = loadData();
-let activeTab = data.tabs[0].id;
-let editingId = null;
+let data = {
+  tabs: [
+    {
+      id: 1,
+      name: "Project A",
+      groups: []
+    },
+    {
+      id: 2,
+      name: "Project B",
+      groups: []
+    },
+    {
+      id: 3,
+      name: "Testing",
+      groups: []
+    }
+  ],
+  activeTabId: 1
+};
 
-const $ = id => document.getElementById(id);
+let editingGroupId = null;
 
-function uid() {
-    return Date.now().toString(36) +
-        Math.random().toString(36).slice(2);
+function normalizeData(saved) {
+  if (!saved || !Array.isArray(saved.tabs)) return null;
+
+  saved.tabs = saved.tabs.map(tab => ({
+    ...tab,
+    groups: Array.isArray(tab.groups)
+      ? tab.groups
+      : Array.isArray(tab.tasks)
+        ? tab.tasks
+        : []
+  }));
+
+  saved.tabs.forEach(tab => {
+    delete tab.tasks;
+  });
+
+  if (!saved.tabs.some(t => t.id === saved.activeTabId)) {
+    saved.activeTabId = saved.tabs[0]?.id ?? null;
+  }
+
+  return saved;
 }
 
 function loadData() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
-        if (saved && Array.isArray(saved.tabs) && saved.tabs.length) {
-            saved.tabs.forEach(t => {
-                if (!Array.isArray(t.tasks)) t.tasks = [];
-            });
-            return saved;
-        }
-    } catch(e) {}
-
-    return {
-        tabs: [{
-            id: uid(),
-            name: "General",
-            tasks: []
-        }]
-    };
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = normalizeData(JSON.parse(saved));
+      if (parsed) data = parsed;
+    }
+  } catch (error) {
+    console.error("Could not load saved data:", error);
+  }
 }
 
-function save() {
+function saveData() {
+  try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (error) {
+    alert("Unable to save data. Please export a backup and check browser storage.");
+  }
 }
 
 function currentTab() {
-    return data.tabs.find(t => t.id === activeTab);
+  return data.tabs.find(t => t.id === data.activeTabId);
 }
-
-function escapeHTML(value = "") {
-    return String(value).replace(/[&<>"']/g, c => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[c]);
-}
-
-/* TABS */
 
 function renderTabs() {
+  const container = document.getElementById("tabs");
+  container.innerHTML = "";
 
-    $("tabs").innerHTML = data.tabs.map(t => `
-        <button class="tab ${t.id === activeTab ? "active" : ""}"
-        data-tab="${escapeHTML(t.id)}">
-            ${escapeHTML(t.name)}
-            (${t.tasks.length})
-        </button>
-    `).join("");
+  data.tabs.forEach(tab => {
+    const button = document.createElement("button");
+    button.className = "tab" +
+      (tab.id === data.activeTabId ? " active" : "");
+    button.textContent = tab.name;
+    button.onclick = () => {
+      data.activeTabId = tab.id;
+      saveData();
+      render();
+    };
+    container.appendChild(button);
+  });
 
-    document.querySelectorAll("[data-tab]").forEach(btn => {
-        btn.onclick = () => {
-            activeTab = btn.dataset.tab;
-            render();
-        };
-    });
+  const addButton = document.createElement("button");
+  addButton.className = "add-tab";
+  addButton.textContent = "+ Add Tab";
+  addButton.onclick = openTabManager;
+  container.appendChild(addButton);
 }
 
-/* MAIN DISPLAY */
+function renderGroups() {
+  const tab = currentTab();
+  const container = document.getElementById("groupsContainer");
+  const search = document.getElementById("searchInput").value.toLowerCase();
+
+  if (!tab) {
+    container.innerHTML = '<div class="empty">Add a work area tab to get started.</div>';
+    document.getElementById("currentTabTitle").textContent = "No Work Areas";
+    document.getElementById("groupCount").textContent = "";
+    return;
+  }
+
+  document.getElementById("currentTabTitle").textContent = tab.name;
+
+  const filtered = tab.groups.filter(group => {
+    const content = [
+      group.name,
+      group.part,
+      group.category,
+      group.status,
+      group.notes
+    ].join(" ").toLowerCase();
+
+    return content.includes(search);
+  });
+
+  document.getElementById("groupCount").textContent =
+    `${tab.groups.length} ${tab.groups.length === 1 ? "Group" : "Groups"}`;
+
+  container.innerHTML = "";
+
+  if (filtered.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.style.gridColumn = "1 / -1";
+    empty.innerHTML = `
+      <h3>${search ? "No groups found" : "No groups yet"}</h3>
+      <p>${search
+        ? "Try another search."
+        : "Add your first group to this work area."}</p>
+    `;
+    container.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(group => {
+    const card = document.createElement("div");
+    card.className = "group-card";
+
+    const top = document.createElement("div");
+    top.className = "group-top";
+
+    const title = document.createElement("h3");
+    title.textContent = group.name || "Untitled Group";
+
+    const status = document.createElement("span");
+    status.className = "status " + statusClass(group.status);
+    status.textContent = group.status || "Not Started";
+
+    top.append(title, status);
+
+    const part = document.createElement("div");
+    part.className = "part-number";
+    part.textContent = "Part Number: " + (group.part || "Not entered");
+
+    const category = document.createElement("div");
+    category.className = "category";
+    category.textContent = "Sub-category: " + (group.category || "Not entered");
+
+    const notesLabel = document.createElement("strong");
+    notesLabel.textContent = "Notes";
+
+    const notes = document.createElement("div");
+    notes.className = "notes";
+    notes.textContent = group.notes || "No notes added.";
+
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    const edit = document.createElement("button");
+    edit.className = "secondary-btn small-btn";
+    edit.textContent = "Edit Group";
+    edit.onclick = () => openGroupModal(group.id);
+
+    const del = document.createElement("button");
+    del.className = "danger-btn small-btn";
+    del.textContent = "Delete";
+    del.onclick = () => deleteGroup(group.id);
+
+    actions.append(edit, del);
+    card.append(top, part, category, notesLabel, notes, actions);
+    container.appendChild(card);
+  });
+}
+
+function statusClass(status) {
+  switch (status) {
+    case "In Progress": return "status-in-progress";
+    case "On Hold": return "status-on-hold";
+    case "Complete": return "status-complete";
+    default: return "status-not-started";
+  }
+}
 
 function render() {
-
-    renderTabs();
-
-    const tab = currentTab();
-
-    if (!tab) return;
-
-    $("activeTitle").textContent = tab.name;
-
-    $("summary").textContent =
-        `${tab.tasks.length} task${tab.tasks.length === 1 ? "" : "s"}`;
-
-    const search = $("searchInput").value.toLowerCase();
-    const filter = $("statusFilter").value;
-
-    const tasks = tab.tasks.filter(task => {
-
-        const matchesSearch = [
-            task.name,
-            task.part,
-            task.category,
-            task.status,
-            task.notes
-        ].join(" ").toLowerCase().includes(search);
-
-        const matchesStatus =
-            !filter || task.status === filter;
-
-        return matchesSearch && matchesStatus;
-    });
-
-    if (!tasks.length) {
-
-        $("records").innerHTML = `
-            <div class="empty">
-                <h3>No tasks found</h3>
-                Add a new task or change your search.
-            </div>
-        `;
-
-        return;
-    }
-
-    $("records").innerHTML = tasks.map(task => `
-
-        <article class="record">
-
-            <div class="record-top">
-
-                <div>
-                    <h3>${escapeHTML(task.name)}</h3>
-
-                    <div class="part-number">
-                        Part #: ${escapeHTML(task.part || "Not assigned")}
-                    </div>
-                </div>
-
-                <span class="status"
-                data-status="${escapeHTML(task.status)}">
-                    ${escapeHTML(task.status)}
-                </span>
-
-            </div>
-
-            <div class="field-grid">
-
-                <div class="field">
-                    <label>Sub-Category</label>
-                    <div>${escapeHTML(task.category || "None")}</div>
-                </div>
-
-                <div class="field">
-                    <label>Part Number</label>
-                    <div>${escapeHTML(task.part || "None")}</div>
-                </div>
-
-            </div>
-
-            <div class="field">
-                <label>Notes</label>
-                <div style="white-space:pre-wrap;overflow-wrap:anywhere">
-                    ${escapeHTML(task.notes || "No notes added.")}
-                </div>
-            </div>
-
-            <div class="card-actions">
-
-                <button class="secondary small"
-                data-edit="${escapeHTML(task.id)}">
-                    Edit
-                </button>
-
-                <button class="danger small"
-                data-delete="${escapeHTML(task.id)}">
-                    Delete
-                </button>
-
-            </div>
-
-        </article>
-
-    `).join("");
-
-    document.querySelectorAll("[data-edit]").forEach(btn => {
-        btn.onclick = () => {
-            const task = tab.tasks.find(
-                t => t.id === btn.dataset.edit
-            );
-            if (task) openModal(task);
-        };
-    });
-
-    document.querySelectorAll("[data-delete]").forEach(btn => {
-        btn.onclick = () => {
-
-            if (!confirm("Delete this task?")) return;
-
-            tab.tasks = tab.tasks.filter(
-                t => t.id !== btn.dataset.delete
-            );
-
-            save();
-            render();
-        };
-    });
+  renderTabs();
+  renderGroups();
 }
 
-/* ADD AND EDIT TASKS */
+function openGroupModal(id = null) {
+  const tab = currentTab();
+  if (!tab) {
+    alert("Please create a work area tab first.");
+    return;
+  }
 
-function openModal(task = null) {
+  editingGroupId = id;
+  const group = id
+    ? tab.groups.find(g => g.id === id)
+    : null;
 
-    editingId = task ? task.id : null;
+  document.getElementById("groupModalTitle").textContent =
+    group ? "Edit Group" : "Add Group";
 
-    $("modalTitle").textContent =
-        task ? "Edit Task" : "Add Task";
+  document.getElementById("groupName").value = group?.name || "";
+  document.getElementById("groupPart").value = group?.part || "";
+  document.getElementById("groupCategory").value = group?.category || "";
+  document.getElementById("groupStatus").value =
+    group?.status || "Not Started";
+  document.getElementById("groupNotes").value = group?.notes || "";
 
-    $("taskName").value = task?.name || "";
-    $("partNumber").value = task?.part || "";
-    $("category").value = task?.category || "";
-    $("taskStatus").value =
-        task?.status || "Not Started";
-    $("taskNotes").value = task?.notes || "";
-
-    $("modalBackdrop").classList.add("show");
-
-    $("taskName").focus();
+  document.getElementById("groupModal").classList.add("show");
 }
 
-function closeModal() {
-    $("modalBackdrop").classList.remove("show");
+function closeGroupModal() {
+  document.getElementById("groupModal").classList.remove("show");
+  editingGroupId = null;
 }
 
-$("addTaskBtn").onclick = () => openModal();
+document.getElementById("groupForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-$("cancelBtn").onclick = closeModal;
+  const tab = currentTab();
+  if (!tab) return;
 
-$("modalBackdrop").onclick = e => {
-    if (e.target === $("modalBackdrop")) {
-        closeModal();
-    }
-};
+  const group = {
+    id: editingGroupId || Date.now(),
+    name: document.getElementById("groupName").value.trim(),
+    part: document.getElementById("groupPart").value.trim(),
+    category: document.getElementById("groupCategory").value.trim(),
+    status: document.getElementById("groupStatus").value,
+    notes: document.getElementById("groupNotes").value.trim()
+  };
 
-$("taskForm").onsubmit = e => {
+  if (!group.name) {
+    alert("Please enter a Group Name.");
+    return;
+  }
 
-    e.preventDefault();
+  if (editingGroupId) {
+    const index = tab.groups.findIndex(g => g.id === editingGroupId);
+    if (index !== -1) tab.groups[index] = group;
+  } else {
+    tab.groups.push(group);
+  }
 
-    const tab = currentTab();
+  saveData();
+  closeGroupModal();
+  render();
+});
 
-    const taskData = {
-        name: $("taskName").value.trim(),
-        part: $("partNumber").value.trim(),
-        category: $("category").value.trim(),
-        status: $("taskStatus").value,
-        notes: $("taskNotes").value.trim()
-    };
+function deleteGroup(id) {
+  const tab = currentTab();
+  if (!tab) return;
 
-    if (!taskData.name) return;
+  if (!confirm("Are you sure you want to delete this group?")) return;
 
-    if (editingId) {
+  tab.groups = tab.groups.filter(g => g.id !== id);
+  saveData();
+  renderGroups();
+}
 
-        const task = tab.tasks.find(
-            t => t.id === editingId
-        );
+function openTabManager() {
+  renderTabManager();
+  document.getElementById("tabModal").classList.add("show");
+}
 
-        if (task) Object.assign(task, taskData);
+function closeTabManager() {
+  document.getElementById("tabModal").classList.remove("show");
+}
 
-    } else {
+function renderTabManager() {
+  const container = document.getElementById("tabManagerList");
+  container.innerHTML = "";
 
-        tab.tasks.unshift({
-            id: uid(),
-            ...taskData
-        });
+  data.tabs.forEach(tab => {
+    const row = document.createElement("div");
+    row.style.cssText =
+      "display:flex;gap:8px;align-items:center;margin-bottom:10px;";
 
-    }
+    const name = document.createElement("span");
+    name.textContent = tab.name;
+    name.style.cssText = "flex:1;font-weight:bold;";
 
-    save();
-    closeModal();
-    render();
-};
+    const rename = document.createElement("button");
+    rename.className = "secondary-btn small-btn";
+    rename.textContent = "Rename";
+    rename.onclick = () => renameTab(tab.id);
 
-/* MAIN TAB MANAGEMENT */
+    const del = document.createElement("button");
+    del.className = "danger-btn small-btn";
+    del.textContent = "Delete";
+    del.onclick = () => deleteTab(tab.id);
 
-$("addTabBtn").onclick = () => {
+    row.append(name, rename, del);
+    container.appendChild(row);
+  });
+}
 
-    const name = prompt("Enter a name for your new tab:");
+function addTab() {
+  const input = document.getElementById("newTabName");
+  const name = input.value.trim();
 
-    if (!name || !name.trim()) return;
+  if (!name) {
+    alert("Please enter a tab name.");
+    return;
+  }
 
-    const tab = {
-        id: uid(),
-        name: name.trim(),
-        tasks: []
-    };
+  const tab = {
+    id: Date.now(),
+    name,
+    groups: []
+  };
 
-    data.tabs.push(tab);
-    activeTab = tab.id;
+  data.tabs.push(tab);
+  data.activeTabId = tab.id;
 
-    save();
-    render();
-};
+  input.value = "";
+  saveData();
+  render();
+  renderTabManager();
+}
 
-$("renameTabBtn").onclick = () => {
+function renameTab(id) {
+  const tab = data.tabs.find(t => t.id === id);
+  if (!tab) return;
 
-    const tab = currentTab();
+  const name = prompt("Enter the new tab name:", tab.name);
+  if (name === null) return;
 
-    const name = prompt(
-        "Rename this tab:",
-        tab.name
-    );
+  if (!name.trim()) {
+    alert("Tab name cannot be empty.");
+    return;
+  }
 
-    if (!name || !name.trim()) return;
+  tab.name = name.trim();
+  saveData();
+  render();
+  renderTabManager();
+}
 
-    tab.name = name.trim();
+function deleteTab(id) {
+  const tab = data.tabs.find(t => t.id === id);
+  if (!tab) return;
 
-    save();
-    render();
-};
+  if (data.tabs.length <= 1) {
+    alert("You must keep at least one work area tab.");
+    return;
+  }
 
-$("deleteTabBtn").onclick = () => {
+  if (!confirm(
+    `Delete "${tab.name}" and all of its groups? This cannot be undone.`
+  )) return;
 
-    if (data.tabs.length === 1) {
-        alert("You must keep at least one tab.");
-        return;
-    }
+  data.tabs = data.tabs.filter(t => t.id !== id);
 
-    if (!confirm(
-        "Delete this entire tab and all its tasks?"
-    )) return;
+  if (data.activeTabId === id) {
+    data.activeTabId = data.tabs[0].id;
+  }
 
-    data.tabs = data.tabs.filter(
-        t => t.id !== activeTab
-    );
+  saveData();
+  render();
+  renderTabManager();
+}
 
-    activeTab = data.tabs[0].id;
+function exportBackup() {
+  const blob = new Blob(
+    [JSON.stringify(data, null, 2)],
+    { type: "application/json" }
+  );
 
-    save();
-    render();
-};
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "work-flow-organizer-backup.json";
+  link.click();
+  URL.revokeObjectURL(url);
+}
 
-/* SEARCH AND FILTER */
+function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-$("searchInput").oninput = render;
-$("statusFilter").onchange = render;
+  const reader = new FileReader();
 
-/* BACKUP EXPORT */
-
-$("exportBtn").onclick = () => {
-
-    const blob = new Blob(
-        [JSON.stringify(data, null, 2)],
-        { type: "application/json" }
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "work-flow-organizer-backup.json";
-
-    link.click();
-
-    URL.revokeObjectURL(url);
-};
-
-/* BACKUP IMPORT */
-
-$("importBtn").onclick = () => {
-    $("importFile").click();
-};
-
-$("importFile").onchange = async e => {
-
-    const file = e.target.files[0];
-
-    if (!file) return;
-
+  reader.onload = function() {
     try {
+      const imported = normalizeData(JSON.parse(reader.result));
 
-        const imported = JSON.parse(
-            await file.text()
-        );
+      if (!imported || imported.tabs.length === 0) {
+        throw new Error("Invalid backup");
+      }
 
-        if (!Array.isArray(imported.tabs) ||
-            !imported.tabs.length ||
-            !imported.tabs.every(t =>
-                typeof t.name === "string" &&
-                Array.isArray(t.tasks)
-            )) {
-            throw new Error("Invalid backup");
-        }
+      if (!confirm("Importing this backup will replace your current data. Continue?")) {
+        event.target.value = "";
+        return;
+      }
 
-        imported.tabs.forEach(t => {
-            t.tasks.forEach(task => {
-                if (!task.id) task.id = uid();
-                if (!task.name) task.name = "Untitled Task";
-                if (!task.part) task.part = "";
-                if (!task.category) task.category = "";
-                if (!task.status) task.status = "Not Started";
-                if (!task.notes) task.notes = "";
-            });
-        });
-
-        if (!confirm(
-            "Importing will replace the current app data. Continue?"
-        )) return;
-
-        data = imported;
-        activeTab = data.tabs[0].id;
-
-        save();
-        render();
-
-        alert("Backup imported successfully.");
-
-    } catch(error) {
-
-        alert("Invalid backup file.");
-
+      data = imported;
+      saveData();
+      render();
+      alert("Backup imported successfully.");
+    } catch (error) {
+      alert("Could not import this file. Please select a valid Work Flow Organizer backup.");
     }
 
-    e.target.value = "";
-};
+    event.target.value = "";
+  };
 
-/* START */
+  reader.readAsText(file);
+}
 
+// Close modals when clicking outside their content.
+document.getElementById("groupModal").addEventListener("click", function(event) {
+  if (event.target === this) closeGroupModal();
+});
+
+document.getElementById("tabModal").addEventListener("click", function(event) {
+  if (event.target === this) closeTabManager();
+});
+
+loadData();
 render();
-
 </script>
 
 </body>
