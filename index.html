@@ -573,51 +573,72 @@ function renderTabs() {
 function renderGroups() {
   const tab = currentTab();
   const container = document.getElementById("groupsContainer");
-  const search = document.getElementById("searchInput").value.toLowerCase();
+  const search = document.getElementById("searchInput").value.trim().toLowerCase();
+  const searching = search.length > 0;
 
-  if (!tab) {
-    container.innerHTML = '<div class="empty">Add a work area tab to get started.</div>';
-    document.getElementById("currentTabTitle").textContent = "No Work Areas";
-    document.getElementById("groupCount").textContent = "";
-    return;
-  }
+  // Search all tabs when a search term is entered.
+  // Otherwise, show only the currently selected tab.
+  const sourceTabs = searching
+    ? data.tabs
+    : (tab ? [tab] : []);
 
-  document.getElementById("currentTabTitle").textContent = tab.name;
+  const results = [];
 
-  const filtered = tab.groups.filter(group => {
-    const content = [
-      group.name,
-      group.part,
-      group.category,
-      group.status,
-      group.notes
-    ].join(" ").toLowerCase();
+  sourceTabs.forEach(workTab => {
+    workTab.groups.forEach(group => {
+      const content = [
+        group.name,
+        group.part,
+        group.category,
+        group.status,
+        group.notes
+      ].join(" ").toLowerCase();
 
-    return content.includes(search);
+      if (!searching || content.includes(search)) {
+        results.push({
+          group: group,
+          tab: workTab
+        });
+      }
+    });
   });
 
+  document.getElementById("currentTabTitle").textContent =
+    searching ? "Search Results - All Tabs" : (tab ? tab.name : "No Work Areas");
+
   document.getElementById("groupCount").textContent =
-    `${tab.groups.length} ${tab.groups.length === 1 ? "Group" : "Groups"}`;
+    `${results.length} ${results.length === 1 ? "Group" : "Groups"} Found`;
 
   container.innerHTML = "";
 
-  if (filtered.length === 0) {
+  if (results.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty";
     empty.style.gridColumn = "1 / -1";
+
     empty.innerHTML = `
-      <h3>${search ? "No groups found" : "No groups yet"}</h3>
-      <p>${search
-        ? "Try another search."
-        : "Add your first group to this tab."}</p>
+      <h3>${searching ? "No groups found" : "No groups yet"}</h3>
+      <p>${searching
+        ? "Try another group name, part number, or search term."
+        : "Add your first group to this work area."}</p>
     `;
+
     container.appendChild(empty);
     return;
   }
 
-  filtered.forEach(group => {
+  results.forEach(result => {
+    const group = result.group;
+    const workTab = result.tab;
+
     const card = document.createElement("div");
     card.className = "group-card";
+
+    // Show which main tab contains this group.
+    const tabLabel = document.createElement("div");
+    tabLabel.className = "category";
+    tabLabel.textContent = "Work Area: " + workTab.name;
+    tabLabel.style.fontWeight = "bold";
 
     const top = document.createElement("div");
     top.className = "group-top";
@@ -637,7 +658,7 @@ function renderGroups() {
 
     const category = document.createElement("div");
     category.className = "category";
-    category.textContent = "Current Stage: " + (group.category || "Not entered");
+    category.textContent = "Sub-category: " + (group.category || "Not entered");
 
     const notesLabel = document.createElement("strong");
     notesLabel.textContent = "Notes";
@@ -652,19 +673,36 @@ function renderGroups() {
     const edit = document.createElement("button");
     edit.className = "secondary-btn small-btn";
     edit.textContent = "Edit Group";
-    edit.onclick = () => openGroupModal(group.id);
+
+    edit.onclick = () => {
+      data.activeTabId = workTab.id;
+      saveData();
+      render();
+      openGroupModal(group.id);
+    };
 
     const del = document.createElement("button");
     del.className = "danger-btn small-btn";
     del.textContent = "Delete";
-    del.onclick = () => deleteGroup(group.id);
+
+    del.onclick = () => deleteGroup(group.id, workTab.id);
 
     actions.append(edit, del);
-    card.append(top, part, category, notesLabel, notes, actions);
+
+    card.append(
+      tabLabel,
+      top,
+      part,
+      category,
+      notesLabel,
+      notes,
+      actions
+    );
+
     container.appendChild(card);
   });
 }
-
+  
 function statusClass(status) {
   switch (status) {
     case "In Progress": return "status-in-progress";
@@ -741,13 +779,15 @@ document.getElementById("groupForm").addEventListener("submit", function(event) 
   render();
 });
 
-function deleteGroup(id) {
-  const tab = currentTab();
+function deleteGroup(id, tabId) {
+  const tab = data.tabs.find(t => t.id === tabId);
+
   if (!tab) return;
 
   if (!confirm("Are you sure you want to delete this group?")) return;
 
   tab.groups = tab.groups.filter(g => g.id !== id);
+
   saveData();
   renderGroups();
 }
