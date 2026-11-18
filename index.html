@@ -620,7 +620,7 @@ function renderGroups() {
       <h3>${searching ? "No groups found" : "No groups yet"}</h3>
       <p>${searching
         ? "Try another group name, part number, or search term."
-        : "Add your first group to this work area."}</p>
+        : "Add your first group to tap."}</p>
     `;
 
     container.appendChild(empty);
@@ -635,11 +635,7 @@ function renderGroups() {
     card.className = "group-card";
 
     // Show which main tab contains this group.
-    const tabLabel = document.createElement("div");
-    tabLabel.className = "category";
-    tabLabel.textContent = "Work Area: " + workTab.name;
-    tabLabel.style.fontWeight = "bold";
-
+    
     const top = document.createElement("div");
     top.className = "group-top";
 
@@ -658,7 +654,7 @@ function renderGroups() {
 
     const category = document.createElement("div");
     category.className = "category";
-    category.textContent = "Sub-category: " + (group.category || "Not entered");
+    category.textContent = "Current Stage: " + (group.category || "Not entered");
 
     const notesLabel = document.createElement("strong");
     notesLabel.textContent = "Notes";
