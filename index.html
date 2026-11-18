@@ -379,13 +379,6 @@ textarea {
   </button>
 </div>
 
-    <input
-      type="file"
-      id="importFile"
-      accept=".json,application/json"
-      hidden
-      onchange="importBackup(event)"
-    >
   </div>
 
 </div>
@@ -471,17 +464,7 @@ let data = {
   tabs: [
     {
       id: 1,
-      name: "Project A",
-      groups: []
-    },
-    {
-      id: 2,
-      name: "Project B",
-      groups: []
-    },
-    {
-      id: 3,
-      name: "Testing",
+      name: "Group Number",
       groups: []
     }
   ],
@@ -881,53 +864,6 @@ function deleteTab(id) {
   saveData();
   render();
   renderTabManager();
-}
-
-function exportBackup() {
-  const blob = new Blob(
-    [JSON.stringify(data, null, 2)],
-    { type: "application/json" }
-  );
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "work-flow-organizer-backup.json";
-  link.click();
-  URL.revokeObjectURL(url);
-}
-
-function importBackup(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = function() {
-    try {
-      const imported = normalizeData(JSON.parse(reader.result));
-
-      if (!imported || imported.tabs.length === 0) {
-        throw new Error("Invalid backup");
-      }
-
-      if (!confirm("Importing this backup will replace your current data. Continue?")) {
-        event.target.value = "";
-        return;
-      }
-
-      data = imported;
-      saveData();
-      render();
-      alert("Backup imported successfully.");
-    } catch (error) {
-      alert("Could not import this file. Please select a valid Work Flow backup.");
-    }
-
-    event.target.value = "";
-  };
-
-  reader.readAsText(file);
 }
 
 // Close modals when clicking outside their content.
