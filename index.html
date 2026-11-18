@@ -367,7 +367,7 @@ textarea {
     <input
       class="search"
       id="searchInput"
-      placeholder="Search groups..."
+      placeholder="Search groups, part number, build process..."
       oninput="renderGroups()"
     >
   </div>
@@ -426,7 +426,11 @@ textarea {
         <select id="groupStatus">
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
-          <option value="On Hold">On Hold</option>
+          <option value="Parts Hold">Parts Hold</option>
+          <option value="Tooling Hold">Tooling Hold</option>
+          <option value="Engineering Hold">Engineering Hold</option>
+          <option value="QA Hold">QA Hold</option>
+          <option value="Other Hold">Other Hold</option>
           <option value="Complete">Complete</option>
         </select>
       </div>
@@ -479,7 +483,7 @@ let data = {
   tabs: [
     {
       id: 1,
-      name: "Group Number",
+      name: "Manufacture Name",
       groups: []
     }
   ],
