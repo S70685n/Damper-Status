@@ -609,7 +609,7 @@ function renderGroups() {
       <h3>${search ? "No groups found" : "No groups yet"}</h3>
       <p>${search
         ? "Try another search."
-        : "Add your first group to this work area."}</p>
+        : "Add your first group to this tab."}</p>
     `;
     container.appendChild(empty);
     return;
@@ -682,7 +682,7 @@ function render() {
 function openGroupModal(id = null) {
   const tab = currentTab();
   if (!tab) {
-    alert("Please create a work area tab first.");
+    alert("Please create a Vehicle Manufacture tab first.");
     return;
   }
 
