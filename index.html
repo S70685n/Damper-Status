@@ -578,6 +578,7 @@ function renderGroups() {
 
   // Search all tabs when a search term is entered.
   // Otherwise, show only the currently selected tab.
+  
   const sourceTabs = searching
     ? data.tabs
     : (tab ? [tab] : []);
@@ -635,6 +636,9 @@ function renderGroups() {
     card.className = "group-card";
 
     // Show which main tab contains this group.
+    const tabLabel = document.createElement("div");
+    tabLabel.className = "category";
+    tabLabel.style.fontWeight = "bold";
     
     const top = document.createElement("div");
     top.className = "group-top";
