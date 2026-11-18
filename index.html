@@ -402,8 +402,15 @@ textarea {
       </div>
 
       <div class="form-group">
-        <label for="groupCategory">Current stage</label>
-        <input id="groupCategory" placeholder="Enter current stage of build process">
+<label for="groupCategory">Currect build stage</label>
+<select id="groupCategory">
+  <option value="">Select a build process</option>
+  <option value="Testing">ASTG</option>
+  <option value="Inspection">FILL</option>
+  <option value="Development">DYNO</option>
+  <option value="Production">CAPP</option>
+  <option value="Other">S5</option>
+</select>
       </div>
 
       <div class="form-group">
