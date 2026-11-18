@@ -607,8 +607,11 @@ function renderGroups() {
   document.getElementById("currentTabTitle").textContent =
     searching ? "Search Results - All Tabs" : (tab ? tab.name : "No Work Areas");
 
-  document.getElementById("groupCount").textContent =
-    `${results.length} ${results.length === 1 ? "Group" : "Groups"} Found`;
+ document.getElementById("groupCount").textContent =
+  tab
+    ? `${tab.groups.length} ${tab.groups.length === 1 ? "Group" : "Groups"}`
+    : "";
+  
   container.innerHTML = "";
 
   if (results.length === 0) {
