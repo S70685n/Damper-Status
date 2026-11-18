@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work Flow Organizer</title>
+<title>Damper Build Status</title>
 
 <style>
 :root {
@@ -365,7 +365,6 @@ input:focus, select:focus, textarea:focus {
 <main>
 
     <div class="toolbar">
-        <span class="section-label">WORK AREAS</span>
         <button id="addTabBtn">+ Add Tab</button>
         <button class="secondary" id="exportBtn">Export Backup</button>
         <button class="secondary" id="importBtn">Import Backup</button>
@@ -379,7 +378,7 @@ input:focus, select:focus, textarea:focus {
         <div class="workspace-header">
             <div>
                 <h2 id="activeTitle">General</h2>
-                <p id="summary">0 tasks</p>
+                <p id="summary">0 group</p>
             </div>
 
             <div class="toolbar" style="margin:0">
@@ -395,7 +394,7 @@ input:focus, select:focus, textarea:focus {
         <div class="workspace-body">
 
             <div class="toolbar">
-                <button id="addTaskBtn">+ Add Task</button>
+                <button id="addTaskBtn">+ Add Group</button>
 
                 <div class="search">
                     <input id="searchInput"
@@ -429,7 +428,7 @@ input:focus, select:focus, textarea:focus {
 
     <div class="modal">
 
-        <h2 id="modalTitle">Add Task</h2>
+        <h2 id="modalTitle">Add Group</h2>
 
         <form id="taskForm">
 
